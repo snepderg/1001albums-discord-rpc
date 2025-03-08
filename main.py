@@ -75,7 +75,7 @@ def update():
     full_name = first_album["name"] + " - " + first_album["artist"]
     project_data["full_name"] = full_name
 
-    artwork_url = first_album["images"][IMAGE_SIZE_SELECTION][url] # 2nd image (medium)
+    artwork_url = first_album["images"][IMAGE_SIZE_SELECTION]["url"] # 2nd image (medium)
     project_data["artwork_url"] = artwork_url
 
     albums_total = len(api_data_raw["history"])
@@ -88,6 +88,10 @@ def update():
 if __name__ == "__main__":
     print("1001 Albums RPC by Snepderg")
     print(f"Call interval set to: {str(UPDATE_INTERVAL / 60)}seconds !")
+
+    update()
+    time.sleep(UPDATE_INTERVAL)
+    rpc.run()
 
     while True:
         update()
