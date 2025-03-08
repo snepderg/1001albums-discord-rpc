@@ -27,12 +27,11 @@ API_URL = "https://1001albumsgenerator.com/api/v1/projects/"
 # 0 = Small, 1 = Medium, 2 = Large
 IMAGE_SIZE_SELECTION = 1
 
-project_data = {
+project_data_old = {
     # full_name: None,
     # artwork_url: None,
     # total: None,
 }
-project_data_old = None
 
 def updateRPC(name: str, artwork_url: str, count: int):
     button = Button(
@@ -48,7 +47,7 @@ def updateRPC(name: str, artwork_url: str, count: int):
         buttons=button,
         #large_image="album_" + str(total_albums % 10),
         #large_text="Album Count % 10"
-        large_image=image_url,
+        large_image=artwork_url,
         large_text=name,
         )
 
@@ -67,10 +66,11 @@ def fetch_project_data():
             return None
 
 def update():
+    global project_data_old
+    project_data = {}
+
     api_data_raw = fetch_project_data()
     first_album = api_data_raw["currentAlbum"]
-
-    project_data_old = project_data
 
     full_name = first_album["name"] + " - " + first_album["artist"]
     project_data["full_name"] = full_name
