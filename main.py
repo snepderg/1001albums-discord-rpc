@@ -78,7 +78,7 @@ def update():
     artwork_url = first_album["images"][IMAGE_SIZE_SELECTION]["url"] # 2nd image (medium)
     project_data["artwork_url"] = artwork_url
 
-    albums_total = len(api_data_raw["history"])
+    albums_total = len(api_data_raw["history"]) + 1
     project_data["total"] = albums_total
 
     if project_data != project_data_old:
