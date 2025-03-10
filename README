@@ -15,7 +15,7 @@
 # Your 1001 Albums Project URL. Create one here (Summary ID is safer)
 # - https://1001albumsgenerator.com/
 `PROJECT_ID="67aa667485b7ba37e8af0608"`
-# How many seconds between updates (besides the first one)
+# How many seconds between updates
 `UPDATE_INTERVAL=3600`
 
 # Don't attempt to upgrade pip, it seems to corrupt the venv.

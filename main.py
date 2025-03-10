@@ -20,7 +20,6 @@ if not CLIENT_ID:
 if not PROJECT_ID:
     raise ValueError("PROJECT_ID not found in environment variables (Check your .env file)!")
 
-rpc = discordrpc.RPC(app_id=CLIENT_ID)
 API_URL = "https://1001albumsgenerator.com/api/v1/projects/"
 
 # Determines which of 3 (0-2) images from the 1001Albums API to send to Discord.
@@ -34,8 +33,6 @@ project_data_old = {
 }
 
 def updateRPC(name: str, artwork_url: str, count: int):
-    print("DEBUG: Running RPC func")
-
     button = Button(
         button_one_label="My Summary",
         button_one_url="https://1001albumsgenerator.com/shares/" + PROJECT_ID,
@@ -56,8 +53,6 @@ def updateRPC(name: str, artwork_url: str, count: int):
 # Query 1001Albums
 # https://1001albumsgenerator.com/api/v1/projects/:ProjectID
 def fetch_project_data():
-    print("DEBUG: Running fetch func")
-
     try:
         response = requests.get(API_URL + PROJECT_ID)
         if response.status_code == 200:
@@ -70,8 +65,6 @@ def fetch_project_data():
             return None
 
 def update():
-    print("DEBUG: Running update func")
-
     global project_data_old
     project_data = {}
 
@@ -95,12 +88,8 @@ if __name__ == "__main__":
     print("1001 Albums RPC by Snepderg")
     print(f"Call interval set to: {str(UPDATE_INTERVAL / 60)} minutes!")
 
-    update()
-    time.sleep(UPDATE_INTERVAL)
-    rpc.run()
+    rpc = discordrpc.RPC(app_id=CLIENT_ID)
 
     while True:
-        print("DEBUG: Tick!")
-
         update()
         time.sleep(UPDATE_INTERVAL)
