@@ -12,7 +12,7 @@ load_dotenv()
 
 CLIENT_ID = os.getenv("DISCORD_CLIENT_ID")
 PROJECT_ID = os.getenv("PROJECT_ID")
-UPDATE_INTERVAL = int(os.getenv("UPDATE_INTERVAL"))
+UPDATE_INTERVAL = int(os.getenv("UPDATE_INTERVAL")) or 300
 
 if not CLIENT_ID:
     raise ValueError("DISCORD_CLIENT_ID not found in environment variables (Check your .env file)!")
