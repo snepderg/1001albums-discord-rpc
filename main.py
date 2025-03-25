@@ -36,7 +36,7 @@ def updateRPC(name: str, artwork_url: str, count: int):
     button = Button(
         button_one_label="My Summary",
         button_one_url="https://1001albumsgenerator.com/shares/" + PROJECT_ID,
-        button_two_label="My GitHub",
+        button_two_label="Project GitHub",
         button_two_url="https://github.com/snepderg"
     )
 
