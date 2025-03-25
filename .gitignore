@@ -5,3 +5,4 @@ installer.bat
 output.json
 run.bat
 requirements.txt
+api_dump.json
