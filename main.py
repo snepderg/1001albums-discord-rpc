@@ -26,7 +26,7 @@ API_URL = "https://1001albumsgenerator.com/api/v1/projects/"
 # 0 = Small, 1 = Medium, 2 = Large
 IMAGE_SIZE_SELECTION = 1
 
-project_data_old = {
+rpc_data_old = {
     # full_name: None,
     # artwork_url: None,
     # total: None,
@@ -44,15 +44,13 @@ def updateRPC(name: str, artwork_url: str, count: int):
         details=name,
         state="~ Total Albums: " + str(count),
         buttons=button,
-        #large_image="album_" + str(total_albums % 10),
-        #large_text="Album Count % 10"
         large_image=artwork_url,
         large_text=name,
         )
 
 # Query 1001Albums
 # https://1001albumsgenerator.com/api/v1/projects/:ProjectID
-def fetch_project_data():
+def fetch_rpc_data():
     try:
         response = requests.get(API_URL + PROJECT_ID)
         if response.status_code == 200:
@@ -65,24 +63,24 @@ def fetch_project_data():
             return None
 
 def update():
-    global project_data_old
-    project_data = {}
+    global rpc_data_old
+    rpc_data = {}
 
-    api_data_raw = fetch_project_data()
-    first_album = api_data_raw["currentAlbum"]
+    api_data = fetch_rpc_data()
+    first_album = api_data["currentAlbum"]
 
     full_name = first_album["name"] + " - " + first_album["artist"]
-    project_data["full_name"] = full_name
+    rpc_data["full_name"] = full_name
 
     artwork_url = first_album["images"][IMAGE_SIZE_SELECTION]["url"] # 2nd image (medium)
-    project_data["artwork_url"] = artwork_url
+    rpc_data["artwork_url"] = artwork_url
 
-    albums_total = len(api_data_raw["history"]) + 1
-    project_data["total"] = albums_total
+    albums_total = len(api_data["history"]) + 1
+    rpc_data["total"] = albums_total
 
-    if project_data != project_data_old:
+    if rpc_data != rpc_data_old:
         updateRPC(full_name, artwork_url, albums_total)
-        project_data_old = project_data
+        rpc_data_old = rpc_data
 
 if __name__ == "__main__":
     print("1001 Albums RPC by Snepderg")
