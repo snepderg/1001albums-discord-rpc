@@ -50,7 +50,7 @@ def updateRPC(name: str, artwork_url: str, count: int):
 
 # Query 1001Albums
 # https://1001albumsgenerator.com/api/v1/projects/:ProjectID
-def fetch_rpc_data():
+def fetch_api_data():
     try:
         response = requests.get(API_URL + PROJECT_ID)
         if response.status_code == 200:
@@ -66,13 +66,18 @@ def update():
     global rpc_data_old
     rpc_data = {}
 
-    api_data = fetch_rpc_data()
-    first_album = api_data["currentAlbum"]
+    api_data = fetch_api_data()
+    history = api_data["history"]
 
-    full_name = first_album["name"] + " - " + first_album["artist"]
+    album = next((target for target in history if "rating" not in target), history[-1])["album"]
+
+    if album is None:
+        raise ValueError("No album found in history.")
+
+    full_name = album["name"] + " - " + album["artist"]
     rpc_data["full_name"] = full_name
 
-    artwork_url = first_album["images"][IMAGE_SIZE_SELECTION]["url"] # 2nd image (medium)
+    artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"] # 2nd image (medium)
     rpc_data["artwork_url"] = artwork_url
 
     albums_total = len(api_data["history"]) + 1
