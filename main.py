@@ -30,7 +30,9 @@ rpc_data_old = {
     # <full_name>, <artwork_url>, <total_str>
 }
 
-def updateRPC(name: str, artwork_url: str, count: int):
+def updateRPC(rpc_data):
+    name, artwork_url, total_albums_str = rpc_data
+
     button = Button(
         button_one_label="My Summary",
         button_one_url="https://1001albumsgenerator.com/shares/" + PROJECT_ID,
@@ -40,7 +42,7 @@ def updateRPC(name: str, artwork_url: str, count: int):
 
     rpc.set_activity(
         details=name,
-        state="~ Total Albums: " + str(count),
+        state=f"• Total Albums: [{total_albums_str}]",
         buttons=button,
         large_image=artwork_url,
         large_text=name,
@@ -62,27 +64,45 @@ def fetch_api_data():
 
 def update():
     global rpc_data_old
-    rpc_data = {}
+    rpc_data = []
 
     api_data = fetch_api_data()
     history = api_data["history"]
 
-    album = next((target for target in history if "rating" not in target), history[-1])["album"]
+    album = None
+    index = -1  # Default to -1 if history is empty
 
-    if album is None:
-        raise ValueError("No album found in history.")
+    for i, target in enumerate(history):
+        if "rating" not in target:
+            album = target["album"]
+            index = i
+            break
+
+    if album is None and history:
+        album = history[-1]
+        index = len(history) - 1
 
     full_name = album["name"] + " - " + album["artist"]
-    rpc_data["full_name"] = full_name
+    artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"]  # 2nd image (medium)
+    total_albums = f"{index + 1}/{len(history)}"
 
-    artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"] # 2nd image (medium)
-    rpc_data["artwork_url"] = artwork_url
-
-    albums_total = len(api_data["history"]) + 1
-    rpc_data["total"] = albums_total
+    rpc_data = [full_name, artwork_url, total_albums]
 
     if rpc_data != rpc_data_old:
-        updateRPC(full_name, artwork_url, albums_total)
+        updateRPC(rpc_data)
+        rpc_data_old = rpc_data
+
+
+    full_name = album["name"] + " - " + album["artist"]
+    artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"] # 2nd image (medium)
+    total_albums_str = f"{index + 1}/{len(history)}"
+
+    rpc_data.append(full_name)
+    rpc_data.append(artwork_url)
+    rpc_data.append(total_albums_str)
+
+    if rpc_data != rpc_data_old:
+        updateRPC(rpc_data)
         rpc_data_old = rpc_data
 
 if __name__ == "__main__":
