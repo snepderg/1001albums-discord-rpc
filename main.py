@@ -38,6 +38,9 @@ def updateRPC(rpc_data):
         button_two_url="https://github.com/snepderg"
     )
 
+    print(f"Details: {name}")
+    print(f"State: • Total Albums: [{info_str}]")
+
     rpc.set_activity(
         details=name,
         state=f"• Total Albums: [{total_albums_str}]",
@@ -49,9 +52,12 @@ def updateRPC(rpc_data):
 # Query 1001Albums
 # https://1001albumsgenerator.com/api/v1/projects/:ProjectID
 def fetch_api_data():
+    print("Attempting to fetch API Data...")
+
     try:
         response = requests.get(API_URL + PROJECT_ID)
         if response.status_code == 200:
+            print("API Data received.")
             return  response.json()
         else:
             print(f"Error: {response.status_code}")
