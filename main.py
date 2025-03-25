@@ -27,9 +27,7 @@ API_URL = "https://1001albumsgenerator.com/api/v1/projects/"
 IMAGE_SIZE_SELECTION = 1
 
 rpc_data_old = {
-    # full_name: None,
-    # artwork_url: None,
-    # total: None,
+    # <full_name>, <artwork_url>, <total_str>
 }
 
 def updateRPC(name: str, artwork_url: str, count: int):
