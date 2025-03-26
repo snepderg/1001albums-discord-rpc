@@ -29,7 +29,7 @@ IMAGE_SIZE_SELECTION = 1
 rpc_data_old = []
 
 def updateRPC(rpc_data):
-    name, artwork_url, total_albums_str = rpc_data
+    name, artwork_url, info_str = rpc_data
 
     button = Button(
         button_one_label="My Summary",
@@ -43,7 +43,7 @@ def updateRPC(rpc_data):
 
     rpc.set_activity(
         details=name,
-        state=f"• Total Albums: [{total_albums_str}]",
+        state=f"• Rated: [{info_str}]",
         buttons=button,
         large_image=artwork_url,
         large_text=name,
@@ -87,23 +87,16 @@ def update():
         index = len(history) - 1
 
     full_name = album["name"] + " - " + album["artist"]
-    artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"]  # 2nd image (medium)
-    total_albums = f"{index + 1}/{len(history)}"
+    artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"]
+    info_str = f"{index + 1}/{len(history)}"
 
-    rpc_data = [full_name, artwork_url, total_albums]
-
-    if rpc_data != rpc_data_old:
-        updateRPC(rpc_data)
-        rpc_data_old = rpc_data
-
-
-    full_name = album["name"] + " - " + album["artist"]
-    artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"] # 2nd image (medium)
-    total_albums_str = f"{index + 1}/{len(history)}"
+    if api_data["paused"]:
+        info_str += " | Paused"
+        print(info_str)
 
     rpc_data.append(full_name)
     rpc_data.append(artwork_url)
-    rpc_data.append(total_albums_str)
+    rpc_data.append(info_str)
 
     if rpc_data != rpc_data_old:
         updateRPC(rpc_data)
