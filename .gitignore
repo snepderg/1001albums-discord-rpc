@@ -1,6 +1,4 @@
 .env
-venv
-installer.bat
-output.json
-run.bat
 api_dump.json
+output.json
+venv
