@@ -1,6 +1,15 @@
 # 1001Albums Discord RPC
 *\ ~ A Python project by Snepderg*
 
+## About
+1001Albums Discord RPC is a script that utilizes the `discord-rpc` Python API to show the status of your 1001 Albums project.
+
+It shows the following about your oldest unrated album:
+(1001 Albums does not allow you to skip rating, only review.)
+- Album Title and Artist
+- Album artwork
+- Rated Albums out of Total Generated Albums
+
 ## Dependencies
 - **Python (3.8.8):**
     - [Discord RPC](https://pypi.org/project/discord-rpc/)
