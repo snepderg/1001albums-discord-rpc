@@ -38,7 +38,8 @@ if not exist .env (
         echo # Your Discord Application ID. Create one here:
         echo # - https://discord.com/developers/applications
         echo DISCORD_ACTIVITY_TOKEN=
-        echo # Your 1001 Albums Project URL. Create one here:
+        echo # Your 1001 Albums Project ID. Create one here:
+        echo # (Summary ID is recommended for security)
         echo # - https://1001albumsgenerator.com
         echo PROJECT_ID=
         echo # How many seconds between updates. ^If left blank will default to 300.
