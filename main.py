@@ -101,7 +101,8 @@ def update():
 
     full_name = album["name"] + " - " + album["artist"]
     artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"]
-    info_str = f"{index + 1}/{len(history)}"
+    rated_count = sum(1 for item in history if "rating" in item)
+    info_str = f"{rated_count}/{len(history)}"
 
     if api_data["paused"]:
         info_str += " | Paused"
