@@ -5,7 +5,8 @@ cls
 echo 1001 Albums Discord RPC Installer/Runner
 echo by Snepderg
 echo 1001Albums: https://1001albumsgenerator.com
-timeout /t 3 /nobreak >nul
+timeout /t 4 /nobreak >nul
+cls
 
 if not exist "venv\Scripts\activate.bat" (
     goto install
@@ -16,14 +17,19 @@ if not exist "venv\Scripts\activate.bat" (
 :install
 echo No virtual environment exists! Creating it now...
 python -m venv venv
+if %errorlevel% neq 0 (
+    echo Failed to create virtual environment!
+    pause
+    exit /b 1
+)
 
 if exist requirements.txt (
     echo Installing required modules...
-    call venv\Scripts\python -m pip install -r requirements.txt
+    venv\Scripts\python -m pip install -r requirements.txt
 ) else (
     echo No requirements.txt found.
     pause
-    exit 1
+    exit /b 1
 )
 
 if not exist .env (
@@ -44,7 +50,7 @@ if not exist .env (
 
 cls
 echo Installation completed.
-echo Note that you will need to fill out the .env file for the script to work.
+echo Note: You will need to fill out the .env credentials for the script to function.
 echo Have fun! ~ Snep
 timeout /t 5 /nobreak >nul
 cls
@@ -52,5 +58,4 @@ goto run
 
 :run
 echo Running RPC...
-call venv\Scripts\activate.bat
-python main.py
+venv\Scripts\python main.py
