@@ -30,7 +30,9 @@ It shows the following about your oldest unrated album:
 - NOTE: Currently only supports Windows, I might write an installer for other systems (But frankly it's pretty straightforward).
 
 ### Example .env Configuration
-*The installer creates a blank.env*
+*The installer creates a blank .env*
+
+- NOTE: Avoid setting the `UPDATE_INTERVAL` parameter below 300 seconds (5 minutes) because the API will ratelimit you if you exceed 3 requests per minute.
 
 ```ini
 # Your Discord Application ID (Create one at https://discord.com/developers/applications)
