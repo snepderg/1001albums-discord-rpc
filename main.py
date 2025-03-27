@@ -9,12 +9,12 @@ from discordrpc.button import Button
 
 load_dotenv()
 
-CLIENT_ID = os.getenv("DISCORD_APP_ID")
+CLIENT_ID = os.getenv("DISCORD_ACTIVITY_TOKEN")
 PROJECT_ID = os.getenv("PROJECT_ID")
 UPDATE_INTERVAL = int(os.getenv("UPDATE_INTERVAL")) or 300
 
 if not CLIENT_ID:
-    raise ValueError("DISCORD_APP_ID not found in environment variables (Check your .env file)!")
+    raise ValueError("DISCORD_ACTIVITY_TOKEN not found in environment variables (Check your .env file)!")
 
 if not PROJECT_ID:
     raise ValueError("PROJECT_ID not found in environment variables (Check your .env file)!")
