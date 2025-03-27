@@ -62,6 +62,8 @@ def fetch_api_data():
     try:
         response = requests.get(API_URL + PROJECT_ID)
         if response.status_code == 200:
+            global user_warned
+
             print("API Data received.")
             api_data = response.json()
 
