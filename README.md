@@ -1,34 +1,37 @@
-# Installation & Setup
+# 1001Albums Discord RPC
+*\ ~ A Python project by Snepderg*
 
-## Requirements
-Ensure you have the following dependencies installed:
+## Dependencies
+- **Python (3.8.8):**
+    - [Discord RPC](https://pypi.org/project/discord-rpc/)
+    - [python-dotenv](https://pypi.org/project/python-dotenv/)
+    - [Requests](https://pypi.org/project/requests/)
+- **Applications**
+    - [Discord Client with Dev Application](https://discord.com/developers/applications)
+    - [1001 Albums Account](https://1001albumsgenerator.com/)
 
-```plaintext
-certifi==2025.1.31
-charset-normalizer==3.4.1
-discord-rpc==5.1
-dotenv==0.9.9
-idna==3.10
-python-dotenv==1.0.1
-requests==2.32.3
-urllib3==2.2.3
-```
+## Installation
+1. Download from source or from Releases
+2. Unzip the folder
+3. Run the included `start.bat` script
+4. Fill out the `.env` config file
+- You will need to create a Discord Application and store the token in the config file.
+- You will need to create a 1001 Albums project and store the ID in the config file. I strongly recommend going to your summary page and copying that ID.
+5. Run the `start.bat` script again
+- NOTE: Currently only supports Windows, I might write an installer for other systems (But frankly it's pretty straightforward).
 
-## Environment Configuration
-Create a `.env` file in your project directory with the following variables:
+### Example .env Configuration
+*The installer creates a blank.env*
 
 ```ini
 # Your Discord Application ID (Create one at https://discord.com/developers/applications)
-DISCORD_CLIENT_ID=1346979281963847772
+DISCORD_ACTIVITY_TOKEN=0938586491844541502
 
-# Your 1001 Albums Project URL (Summary ID is recommended for stability)
+# Your 1001 Albums Project ID. Create one here:
 # Create one at https://1001albumsgenerator.com/
-PROJECT_ID="67aa667485b7ba37e8af0608"
+# (Summary ID is recommended for security)
+PROJECT_ID="xbhd3w19662a4la0t1u0ij3w"
 
-# Update interval in seconds
-UPDATE_INTERVAL=3600
+# How many seconds between updates. If left blank will default to 300.
+UPDATE_INTERVAL=300
 ```
-
-## Important Notes
-- **Avoid upgrading `pip`** within the virtual environment, as it may cause corruption.
-  - The exact cause is still under investigation.
