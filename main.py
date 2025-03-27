@@ -11,7 +11,9 @@ load_dotenv()
 
 CLIENT_ID = os.getenv("DISCORD_ACTIVITY_TOKEN")
 PROJECT_ID = os.getenv("PROJECT_ID")
-UPDATE_INTERVAL = int(os.getenv("UPDATE_INTERVAL")) or 300
+
+update_interval_str = os.getenv("UPDATE_INTERVAL")
+UPDATE_INTERVAL = int(update_interval_str) if update_interval_str and update_interval_str.isdigit() else 300
 
 if not CLIENT_ID:
     raise ValueError("DISCORD_ACTIVITY_TOKEN not found in environment variables (Check your .env file)!")
