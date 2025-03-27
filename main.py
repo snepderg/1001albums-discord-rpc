@@ -30,6 +30,9 @@ IMAGE_SIZE_SELECTION = 1
 # <full_name>, <artwork_url>, <total_str>
 rpc_data_old = []
 
+user_warned = False
+
+
 def updateRPC(rpc_data):
     name, artwork_url, info_str = rpc_data
 
@@ -60,7 +63,13 @@ def fetch_api_data():
         response = requests.get(API_URL + PROJECT_ID)
         if response.status_code == 200:
             print("API Data received.")
-            return  response.json()
+            api_data = response.json()
+
+            if "name" in api_data and not user_warned:
+                print("!! WARNING! You have configured this script with a raw project ID.\nIt is strongly recommended that you use your project summary for security.")
+                user_warned = True
+
+            return api_data
         else:
             print(f"Error: {response.status_code}")
             return None
