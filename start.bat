@@ -1,7 +1,7 @@
 @echo off
 REM start.bat
 
-call cls
+cls
 echo 1001 Albums Discord RPC Installer/Runner
 echo by Snepderg
 echo 1001Albums: https://1001albumsgenerator.com
@@ -42,12 +42,12 @@ if not exist .env (
     echo .env file already exists in directory.
 )
 
-call cls
+cls
 echo Installation completed.
 echo Note that you will need to fill out the .env file for the script to work.
 echo Have fun! ~ Snep
-timeout /t 5 nobreak >nul
-call cls
+timeout /t 5 /nobreak >nul
+cls
 goto run
 
 :run
