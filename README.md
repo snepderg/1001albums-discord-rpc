@@ -32,6 +32,8 @@ It shows the following about your oldest unrated album:
 ### Example .env Configuration
 *The installer creates a blank .env*
 
+- NOTE: Avoid setting the `UPDATE_INTERVAL` parameter below 300 seconds (5 minutes) because the API will ratelimit you if you exceed 3 requests per minute.
+
 ```ini
 # Your Discord Application ID (Create one at https://discord.com/developers/applications)
 DISCORD_ACTIVITY_TOKEN=0938586491844541502
