@@ -43,16 +43,16 @@ def updateRPC(rpc_data):
         button_two_url="https://github.com/snepderg"
     )
 
-    print(f"Details: {name}")
-    print(f"State: • Total Albums: [{info_str}]")
+    print(f"Details: \n{name}")
+    print(f"State: \n{info_str}")
 
     rpc.set_activity(
         details=name,
-        state=f"• Rated: [{info_str}]",
+        state=info_str,
         buttons=button,
         large_image=artwork_url,
         large_text=name,
-        )
+    )
 
 # Query 1001Albums
 # https://1001albumsgenerator.com/api/v1/projects/:ProjectID
@@ -102,7 +102,7 @@ def update():
     full_name = album["name"] + " - " + album["artist"]
     artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"]
     rated_count = sum(1 for item in history if "rating" in item)
-    info_str = f"{rated_count}/{len(history)}"
+    info_str = f"• Displayed: #{index + 1} | Rated: [{rated_count}/{len(history)}]"
 
     if api_data["paused"]:
         info_str += " | Paused"
