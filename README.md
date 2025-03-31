@@ -19,7 +19,7 @@ It shows the following about your oldest unrated album:
     - [Discord Client with Dev Application](https://discord.com/developers/applications)
     - [1001 Albums Account](https://1001albumsgenerator.com/)
 
-## Installation
+## Setup
 1. Download from source or from Releases
 2. Unzip the folder
 3. Run the included `start.bat` script
