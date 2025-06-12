@@ -84,27 +84,38 @@ def update():
     rpc_data = []
 
     api_data = fetch_api_data()
-    history = api_data["history"]
+    history = api_data.get("history", [])
 
     album = None
     index = -1  # Default to -1 if history is empty
 
     for i, target in enumerate(history):
         if "rating" not in target:
-            album = target["album"]
+            album = target.get("album")
             index = i
             break
 
     if album is None and history:
-        album = history[-1]
+        album = history[-1].get("album", history[-1])
         index = len(history) - 1
 
-    full_name = album["name"] + " - " + album["artist"]
-    artwork_url = album["images"][IMAGE_SIZE_SELECTION]["url"]
+    # Use .get() for album fields
+    album_name = album.get("name", "Unknown Album") if isinstance(album, dict) else "Unknown Album"
+    album_artist = album.get("artist", "Unknown Artist") if isinstance(album, dict) else "Unknown Artist"
+    full_name = f"{album_name} - {album_artist}"
+
+    # Use .get() for images
+    images = album.get("images", []) if isinstance(album, dict) else []
+    artwork_url = (
+        images[IMAGE_SIZE_SELECTION].get("url", "No Image")
+        if len(images) > IMAGE_SIZE_SELECTION and isinstance(images[IMAGE_SIZE_SELECTION], dict)
+        else "No Image"
+    )
+
     rated_count = sum(1 for item in history if "rating" in item)
     info_str = f"• Displayed: #{index + 1} | Rated: [{rated_count}/{len(history)}]"
 
-    if api_data["paused"]:
+    if api_data.get("paused"):
         info_str += " | Paused"
         print(info_str)
 
