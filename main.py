@@ -52,6 +52,7 @@ def updateRPC(rpc_data):
         buttons=button,
         large_image=artwork_url,
         large_text=name,
+        ts_start=int(time.time()),
     )
 
 # Query 1001Albums
