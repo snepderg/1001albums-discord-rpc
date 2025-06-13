@@ -1,12 +1,21 @@
 @echo off
 REM start.bat
 
+REM Always run from script's own directory
+cd /d "%~dp0"
+
 cls
 echo 1001 Albums Discord RPC Installer/Runner
 echo by Snepderg
 echo 1001Albums: https://1001albumsgenerator.com
 timeout /t 4 /nobreak >nul
 cls
+
+if not exist main.py (
+    echo main.py not found! Please make sure the script is in this directory.
+    pause
+    exit /b 1
+)
 
 if not exist "venv\Scripts\activate.bat" (
     goto install
@@ -17,6 +26,7 @@ if not exist "venv\Scripts\activate.bat" (
 :install
 echo No virtual environment exists! Creating it now...
 python -m venv venv
+cmd /c exit 0
 if %errorlevel% neq 0 (
     echo Failed to create virtual environment!
     pause
@@ -59,4 +69,4 @@ goto run
 
 :run
 echo Running RPC...
-venv\Scripts\python main.py
+call venv\Scripts\python main.py
