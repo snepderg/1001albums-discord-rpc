@@ -1,6 +1,9 @@
 @echo off
 REM start.bat
 
+title 1001AlbumsRPC
+color 0B
+
 REM Always run from script's own directory
 cd /d "%~dp0"
 
